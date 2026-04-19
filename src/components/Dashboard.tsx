@@ -1,4 +1,4 @@
-import { LayoutDashboard, Timer, Calendar, BookOpen, ChevronRight, Zap, Trophy, Goal } from 'lucide-react';
+import { LayoutDashboard, Timer, Calendar, BookOpen, ChevronRight, Zap, Trophy, Goal, AlertCircle } from 'lucide-react';
 import { motion } from 'motion/react';
 import { Subject, TimetableEntry, Screen, StudySession } from '../types';
 import { cn } from '../lib/utils';
@@ -19,6 +19,21 @@ export default function Dashboard({ subjects, timetable, sessions, onNavigate }:
   const totalTopics = subjects.reduce((acc, s) => acc + s.units.reduce((uAcc, u) => uAcc + u.topics.length, 0), 0);
   const completedTopics = subjects.reduce((acc, s) => acc + s.units.reduce((uAcc, u) => uAcc + u.topics.filter(t => t.isCompleted).length, 0), 0);
   const completionRate = totalTopics > 0 ? Math.round((completedTopics / totalTopics) * 100) : 0;
+
+  // Smart Recommendation Logic
+  let nextRecommendation = null;
+  const hardSubjects = subjects.filter(s => s.difficulty === 'hard');
+  for (const sub of hardSubjects) {
+     const pendingTopic = sub.units.flatMap(u => u.topics).find(t => !t.isCompleted);
+     if (pendingTopic) {
+        nextRecommendation = { subject: sub.name, topic: pendingTopic.name };
+        break;
+     }
+  }
+  if (!nextRecommendation) {
+    const defaultPending = subjects.flatMap(s => s.units.flatMap(u => u.topics)).find(t => !t.isCompleted);
+    if (defaultPending) nextRecommendation = { subject: "Any Subject", topic: defaultPending.name };
+  }
 
   return (
     <div className="p-6 pb-32 space-y-10 max-w-7xl mx-auto">
@@ -152,6 +167,30 @@ export default function Dashboard({ subjects, timetable, sessions, onNavigate }:
               Talk to Mitra <ChevronRight size={14} />
             </div>
           </div>
+
+          {/* Smart Recommendation Widget */}
+          {nextRecommendation && (
+             <div className="bg-amber-50 p-8 rounded-[2.5rem] border border-amber-100 shadow-sm relative overflow-hidden group">
+               <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:scale-110 transition-transform">
+                 <AlertCircle size={80} className="text-amber-500" />
+               </div>
+               <div className="relative z-10">
+                 <div className="flex items-center gap-2 text-amber-600 font-bold text-xs uppercase tracking-widest mb-4">
+                   <AlertCircle size={16} /> Action Required
+                 </div>
+                 <h4 className="text-2xl font-black text-amber-950 mb-2 leading-tight">Focus on {nextRecommendation.subject}</h4>
+                 <p className="text-amber-800/80 text-sm font-medium mb-6">
+                   You're falling behind on <strong className="text-amber-900">{nextRecommendation.topic}</strong>. Dedicate your next Pomodoro session here.
+                 </p>
+                 <button 
+                  onClick={() => onNavigate('timer')}
+                  className="px-6 py-3 bg-amber-500 text-white rounded-xl text-xs font-bold uppercase tracking-widest shadow-lg shadow-amber-500/20 hover:bg-amber-600 hover:scale-105 active:scale-95 transition-all w-full"
+                 >
+                   Start Session
+                 </button>
+               </div>
+             </div>
+          )}
 
           {/* Quick Stats */}
           <div className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-8">

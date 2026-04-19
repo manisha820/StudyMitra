@@ -2,18 +2,20 @@ import { useState } from 'react';
 import { Plus, Trash2, ChevronRight, ChevronDown, CheckCircle2, Circle, BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Subject, Unit, Difficulty } from '../types';
+import { supabase } from '../lib/supabase';
 import { cn } from '../lib/utils';
 
 type Props = {
+  user: any;
   subjects: Subject[];
   setSubjects: (subjects: Subject[]) => void;
 };
 
-export default function SyllabusManager({ subjects, setSubjects }: Props) {
+export default function SyllabusManager({ user, subjects, setSubjects }: Props) {
   const [newSubjectName, setNewSubjectName] = useState('');
   const [expandedSubject, setExpandedSubject] = useState<string | null>(null);
 
-  const addSubject = () => {
+  const addSubject = async () => {
     if (!newSubjectName.trim()) return;
     const newSub: Subject = {
       id: Date.now().toString(),
@@ -24,33 +26,49 @@ export default function SyllabusManager({ subjects, setSubjects }: Props) {
     setSubjects([...subjects, newSub]);
     setNewSubjectName('');
     setExpandedSubject(newSub.id);
+    
+    if (user) {
+      await supabase.from('subjects').insert({
+        id: newSub.id,
+        user_id: user.id,
+        name: newSub.name,
+        difficulty: newSub.difficulty
+      });
+    }
   };
 
-  const deleteSubject = (id: string) => {
+  const deleteSubject = async (id: string) => {
     setSubjects(subjects.filter(s => s.id !== id));
+    if (user) await supabase.from('subjects').delete().eq('id', id);
   };
 
-  const updateDifficulty = (id: string, difficulty: Difficulty) => {
+  const updateDifficulty = async (id: string, difficulty: Difficulty) => {
     setSubjects(subjects.map(s => s.id === id ? { ...s, difficulty } : s));
+    if (user) await supabase.from('subjects').update({ difficulty }).eq('id', id);
   };
 
-  const addUnit = (subjectId: string) => {
+  const addUnit = async (subjectId: string) => {
     const unitName = prompt('Enter unit name:');
     if (!unitName) return;
+    const unitId = Date.now().toString();
     setSubjects(subjects.map(s => {
       if (s.id === subjectId) {
         return {
           ...s,
-          units: [...s.units, { id: Date.now().toString(), name: unitName, topics: [] }]
+          units: [...s.units, { id: unitId, name: unitName, topics: [] }]
         };
       }
       return s;
     }));
+    if (user) {
+      await supabase.from('units').insert({ id: unitId, subject_id: subjectId, name: unitName });
+    }
   };
 
-  const addTopic = (subjectId: string, unitId: string) => {
+  const addTopic = async (subjectId: string, unitId: string) => {
     const topicName = prompt('Enter topic name:');
     if (!topicName) return;
+    const topicId = Date.now().toString();
     setSubjects(subjects.map(s => {
       if (s.id === subjectId) {
         return {
@@ -59,7 +77,7 @@ export default function SyllabusManager({ subjects, setSubjects }: Props) {
             if (u.id === unitId) {
               return {
                 ...u,
-                topics: [...u.topics, { id: Date.now().toString(), name: topicName, isCompleted: false }]
+                topics: [...u.topics, { id: topicId, name: topicName, isCompleted: false }]
               };
             }
             return u;
@@ -68,9 +86,13 @@ export default function SyllabusManager({ subjects, setSubjects }: Props) {
       }
       return s;
     }));
+    if (user) {
+      await supabase.from('topics').insert({ id: topicId, unit_id: unitId, name: topicName, is_completed: false });
+    }
   };
 
-  const toggleTopic = (subjectId: string, unitId: string, topicId: string) => {
+  const toggleTopic = async (subjectId: string, unitId: string, topicId: string) => {
+    let newStatus = false;
     setSubjects(subjects.map(s => {
       if (s.id === subjectId) {
         return {
@@ -79,7 +101,13 @@ export default function SyllabusManager({ subjects, setSubjects }: Props) {
             if (u.id === unitId) {
               return {
                 ...u,
-                topics: u.topics.map(t => t.id === topicId ? { ...t, isCompleted: !t.isCompleted } : t)
+                topics: u.topics.map(t => {
+                  if (t.id === topicId) {
+                    newStatus = !t.isCompleted;
+                    return { ...t, isCompleted: newStatus };
+                  }
+                  return t;
+                })
               };
             }
             return u;
@@ -88,6 +116,9 @@ export default function SyllabusManager({ subjects, setSubjects }: Props) {
       }
       return s;
     }));
+    if (user) {
+      await supabase.from('topics').update({ is_completed: newStatus }).eq('id', topicId);
+    }
   };
 
   return (

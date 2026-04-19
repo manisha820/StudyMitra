@@ -20,6 +20,12 @@ export default function Pomodoro({ activeSubjectId, onSessionComplete }: Props) 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
+    if ("Notification" in window && Notification.permission === "default") {
+      Notification.requestPermission();
+    }
+  }, []);
+
+  useEffect(() => {
     let interval: any = null;
     if (isActive) {
       interval = setInterval(() => {
@@ -50,7 +56,15 @@ export default function Pomodoro({ activeSubjectId, onSessionComplete }: Props) 
         minutes: customStudy
       });
     }
-    // Notification logic would go here
+    
+    // Notification logic
+    if ("Notification" in window && Notification.permission === "granted") {
+      new Notification(mode === 'study' ? "Study Session Complete!" : "Break Over!", {
+        body: mode === 'study' ? "Great job! Time for a short break." : "Time to get back to focus.",
+        icon: "/vite.svg" // fallback icon since we don't have public assets configured yet
+      });
+    }
+
     const nextMode = mode === 'study' ? 'break' : 'study';
     setMode(nextMode);
     setMinutes(nextMode === 'study' ? customStudy : customBreak);

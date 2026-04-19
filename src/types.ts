@@ -42,4 +42,24 @@ export type Message = {
   timestamp: Date;
 };
 
+export type CommitmentType = 'college' | 'sleep' | 'meal' | 'travel' | 'exercise' | 'personal' | 'other';
+
+export type Commitment = {
+  id: string;
+  label: string;
+  type: CommitmentType;
+  startTime: string; // HH:MM 24h
+  endTime: string;   // HH:MM 24h
+  days: string[];    // e.g. ['Monday','Tuesday']
+};
+
+export type DailyRoutine = {
+  wakeUpTime: string;  // HH:MM
+  sleepTime: string;   // HH:MM
+  commitments: Commitment[];
+  preferredSessionLength: number; // minutes e.g. 45
+  breakBetweenSessions: number;   // minutes e.g. 15
+  maxDailyStudyHours: number;     // e.g. 6
+};
+
 export type Screen = 'dashboard' | 'syllabus' | 'planner' | 'coach' | 'timer' | 'analytics';
