@@ -10,11 +10,18 @@ export async function askProfessor(query: string, history: Message[] = []) {
       config: {
         systemInstruction: `You are "Mitra", the expert Study Coach for the StudyMitra app. 
         Your mission is to help students achieve academic excellence through structured planning and effective study techniques.
+        
+        CRITICAL: All information you provide must be strictly factual, realistic, and verified. 
+        You have access to Google Search to gather up-to-date and trusted information for the search queries asked by students.
+        Use it whenever you are explaining real-world topics, academic concepts, or gathering resources.
+        Never hallucinate. If you are unsure, use the search tool to verify.
+        
         Focus on:
         1. Subject-specific strategies (how to tackle hard vs easy subjects).
         2. Unit-wise preparation techniques.
         3. Revision and retention tips.
         Explanations should be simple, encouraging, and exam-oriented.`,
+        tools: [{ googleSearch: {} }]
       }
     });
 
@@ -25,7 +32,7 @@ export async function askProfessor(query: string, history: Message[] = []) {
     return response.text || "I'm here to help! Let me try that again.";
   } catch (error) {
     console.error("Coach Error:", error);
-    return "I'm currently optimizing my teaching modules. Just a moment!";
+    return "I'm currently optimizing my teaching modules with trusted sources. Just a moment!";
   }
 }
 
