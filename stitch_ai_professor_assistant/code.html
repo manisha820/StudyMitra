@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Study Mitra | Your Academic Curator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-dim": "#622bcb",
+                      "primary-fixed-dim": "#17a8ec",
+                      "surface-container": "#e5eeff",
+                      "secondary-fixed": "#6ffbbe",
+                      "primary-fixed": "#34b5fa",
+                      "outline-variant": "#91b4e4",
+                      "on-tertiary-fixed-variant": "#fdf6ff",
+                      "error-dim": "#67040d",
+                      "on-tertiary": "#fdf7ff",
+                      "on-secondary-fixed-variant": "#006947",
+                      "secondary-fixed-dim": "#5fedb0",
+                      "inverse-primary": "#34b5fa",
+                      "primary-dim": "#005980",
+                      "tertiary-fixed-dim": "#8252ec",
+                      "surface-tint": "#006592",
+                      "surface-container-high": "#dce9ff",
+                      "primary": "#006592",
+                      "surface-bright": "#f8f9ff",
+                      "on-primary-fixed-variant": "#003954",
+                      "tertiary-fixed": "#8f60fa",
+                      "on-tertiary-fixed": "#ffffff",
+                      "on-secondary-fixed": "#004930",
+                      "secondary-container": "#6ffbbe",
+                      "error": "#a83836",
+                      "background": "#f8f9ff",
+                      "on-error-container": "#6e0a12",
+                      "inverse-surface": "#000f21",
+                      "surface-variant": "#d2e4ff",
+                      "tertiary-container": "#8f60fa",
+                      "surface-container-low": "#eff4ff",
+                      "on-secondary": "#e6ffee",
+                      "on-surface-variant": "#3d618c",
+                      "on-primary-fixed": "#00121e",
+                      "on-primary-container": "#003047",
+                      "secondary": "#006d4a",
+                      "on-primary": "#f5f9ff",
+                      "secondary-dim": "#005f40",
+                      "on-secondary-container": "#005e3f",
+                      "on-tertiary-container": "#000000",
+                      "surface": "#f8f9ff",
+                      "on-error": "#fff7f6",
+                      "inverse-on-surface": "#8e9eb7",
+                      "tertiary": "#6e3bd8",
+                      "outline": "#5a7da9",
+                      "primary-container": "#34b5fa",
+                      "surface-container-highest": "#d2e4ff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface": "#05345c",
+                      "surface-dim": "#c4dcff",
+                      "on-background": "#05345c",
+                      "error-container": "#fa746f"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Plus Jakarta Sans"],
+                      "body": ["Manrope"],
+                      "label": ["Inter"]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(210, 228, 255, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #006592, #005980);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl no-border shadow-sm shadow-sky-900/5">
+<nav class="flex items-center justify-between px-8 py-4 max-w-7xl mx-auto w-full">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-sky-700 dark:text-sky-400 text-3xl" data-icon="school">school</span>
+<span class="text-2xl font-extrabold tracking-tight text-sky-800 dark:text-sky-200 font-headline">Study Mitra</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-sky-700 dark:text-sky-300 font-semibold border-b-2 border-sky-700 transition-all duration-300" href="#">Home</a>
+<a class="text-slate-500 dark:text-slate-400 font-medium hover:text-sky-600 dark:hover:text-sky-300 transition-all duration-300" href="#">Curator Dashboard</a>
+<a class="text-slate-500 dark:text-slate-400 font-medium hover:text-sky-600 dark:hover:text-sky-300 transition-all duration-300" href="#">AI Professor</a>
+<a class="text-slate-500 dark:text-slate-400 font-medium hover:text-sky-600 dark:hover:text-sky-300 transition-all duration-300" href="#">Timetable</a>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-full font-headline font-bold text-sm hover:opacity-90 active:scale-95 transition-all">
+                Get Started
+            </button>
+</nav>
+</header>
+<main class="pt-24">
+<!-- Hero Section -->
+<section class="relative px-8 pt-20 pb-32 overflow-hidden">
+<div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+<div class="z-10">
+<span class="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest uppercase text-primary bg-primary-container/30 rounded-full font-label">The Future of Learning</span>
+<h1 class="text-6xl md:text-7xl font-extrabold font-headline leading-[1.1] text-on-background mb-8">
+                        Master Your Exams with <span class="text-gradient">Academic Intelligence</span>
+</h1>
+<p class="text-xl text-on-surface-variant mb-12 max-w-xl font-body leading-relaxed">
+                        Say goodbye to scattered notes and rigid schedules. Study Mitra curates your learning journey with precision AI and an editorial-grade interface.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<button class="px-8 py-4 bg-primary text-on-primary rounded-full font-headline font-bold text-lg shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all">
+                            Get Started for Free
+                        </button>
+<button class="px-8 py-4 border-2 border-outline-variant/30 text-primary rounded-full font-headline font-bold text-lg hover:bg-surface-container transition-all">
+                            View Portal Demo
+                        </button>
+</div>
+</div>
+<div class="relative group">
+<div class="absolute -inset-4 bg-gradient-to-tr from-primary/10 to-tertiary/10 rounded-[3rem] blur-2xl opacity-50 group-hover:opacity-80 transition-opacity"></div>
+<div class="relative bg-surface-container-lowest rounded-[2rem] p-4 shadow-2xl shadow-on-surface/5 overflow-hidden">
+<img alt="Student dashboard showing AI tutor and timetable" class="rounded-[1.5rem] w-full aspect-[4/3] object-cover" data-alt="Modern clean educational dashboard mockup with bright blue accents and floating AI widgets showing study analytics and progress charts" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3-WoR3KiPUeZC1ziB3bwgZXymEY7cSyD8788-PNoXsCBonCXPg7TZRa2PkTk_6jEHSmw8Ly4uKDi4pmYiBf3pW5QKloGvhT18vWJrBZKw5ANw2-u_8TaiAh_Gz6hz36XUyx5QbysbAP4mAplmKTm4UqPYA1SOjFYrgAJU9XOqTfNn00OBnx0zFlkFNbG02kSvwA-OHfxXf8qa8JVTM-uowIiq8DJ-lvguCKRK7_MKWEnOinVz6SPoXkOb3Davz8KphgFS4RNgQXo"/>
+</div>
+<!-- Floating Asymmetric Element -->
+<div class="absolute -bottom-10 -left-10 glass-panel p-6 rounded-2xl shadow-xl border border-white/40 max-w-[200px]">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-secondary" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label font-bold text-xs uppercase tracking-wider text-secondary">AI Insight</span>
+</div>
+<p class="text-sm font-medium text-on-surface">"Focus on Biochemistry modules 3-4 today for 15% better retention."</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Trust Section -->
+<section class="bg-surface-container-low py-20 px-8">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+<div>
+<div class="text-5xl font-extrabold font-headline text-primary mb-2">98.2%</div>
+<div class="text-sm font-label font-bold text-on-surface-variant uppercase tracking-widest">Exam Pass Rate</div>
+</div>
+<div>
+<div class="text-5xl font-extrabold font-headline text-secondary mb-2">1.2M+</div>
+<div class="text-sm font-label font-bold text-on-surface-variant uppercase tracking-widest">Sessions Sync</div>
+</div>
+<div>
+<div class="text-5xl font-extrabold font-headline text-tertiary mb-2">24/7</div>
+<div class="text-sm font-label font-bold text-on-surface-variant uppercase tracking-widest">AI Assistance</div>
+</div>
+<div>
+<div class="text-5xl font-extrabold font-headline text-on-surface mb-2">500+</div>
+<div class="text-sm font-label font-bold text-on-surface-variant uppercase tracking-widest">Top Universities</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Smart Timetable Section -->
+<section class="py-32 px-8 bg-surface">
+<div class="max-w-7xl mx-auto">
+<div class="mb-20 text-center">
+<h2 class="text-4xl md:text-5xl font-extrabold font-headline text-on-background mb-6">Intentional Scheduling</h2>
+<p class="text-on-surface-variant max-w-2xl mx-auto text-lg">We've replaced the rigid grid with an organic flow that adapts to your mental peaks and valleys.</p>
+</div>
+<div class="grid lg:grid-cols-12 gap-8">
+<!-- Editorial Timetable Card -->
+<div class="lg:col-span-7 bg-surface-container-lowest rounded-[2.5rem] p-10 shadow-sm border border-outline-variant/10 w-full">
+<div class="flex justify-between items-center mb-10">
+<div>
+<h3 class="text-2xl font-bold font-headline">Wednesday, June 12</h3>
+<p class="text-on-surface-variant font-label text-sm uppercase tracking-wide">4 Scheduled Sessions</p>
+</div>
+<button class="p-3 bg-surface-container rounded-full text-primary hover:bg-primary hover:text-on-primary transition-all">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</div>
+<div class="space-y-6">
+<div class="group flex items-center gap-6 p-6 rounded-2xl bg-primary-container hover:bg-primary-fixed transition-all cursor-pointer">
+<div class="text-on-primary-container">
+<div class="font-bold text-lg">09:00 - 10:30</div>
+<div class="text-xs uppercase font-label font-bold opacity-70">Focus Block</div>
+</div>
+<div class="h-10 w-[2px] bg-on-primary-container/20"></div>
+<div>
+<h4 class="font-bold text-xl text-on-primary-container">Advanced Macroeconomics</h4>
+<p class="text-on-primary-container/70 text-sm">Library Quiet Zone</p>
+</div>
+</div>
+<div class="group flex items-center gap-6 p-6 rounded-2xl bg-secondary-container hover:bg-secondary-fixed transition-all cursor-pointer">
+<div class="text-on-secondary-container">
+<div class="font-bold text-lg">11:00 - 12:30</div>
+<div class="text-xs uppercase font-label font-bold opacity-70">Interactive</div>
+</div>
+<div class="h-10 w-[2px] bg-on-secondary-container/20"></div>
+<div>
+<h4 class="font-bold text-xl text-on-secondary-container">Group Case Study Review</h4>
+<p class="text-on-secondary-container/70 text-sm">Online Conference Hall</p>
+</div>
+</div>
+<div class="group flex items-center gap-6 p-6 rounded-2xl bg-surface-container-low hover:bg-surface-variant transition-all cursor-pointer">
+<div class="text-on-surface">
+<div class="font-bold text-lg">14:00 - 15:00</div>
+<div class="text-xs uppercase font-label font-bold opacity-60">AI Sync</div>
+</div>
+<div class="h-10 w-[2px] bg-outline-variant"></div>
+<div>
+<h4 class="font-bold text-xl text-on-surface">Weekly Progress Review</h4>
+<p class="text-on-surface-variant text-sm">Personal Dashboard</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Side Features -->
+<div class="lg:col-span-5 grid gap-8 flex flex-col justify-center">
+<div class="bg-surface-container-high rounded-[2rem] p-8">
+<span class="material-symbols-outlined text-4xl text-primary mb-4" data-icon="update">update</span>
+<h4 class="text-xl font-bold font-headline mb-3 text-on-background">Cognitive Load Balancing</h4>
+<p class="text-on-surface-variant leading-relaxed">Our system automatically spaces out heavy reading blocks with light review periods to prevent burnout.</p>
+</div>
+<div class="bg-secondary-container/20 rounded-[2rem] p-8 border border-secondary/10">
+<span class="material-symbols-outlined text-4xl text-secondary mb-4" data-icon="sync_alt">sync_alt</span>
+<h4 class="text-xl font-bold font-headline mb-3 text-on-background">Multi-Platform Sync</h4>
+<p class="text-on-surface-variant leading-relaxed">Synchronize your university LMS, personal calendar, and Study Mitra with a single tap.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Professor Feature Section -->
+<section class="py-32 px-8 overflow-hidden bg-surface-container-low">
+<div class="max-w-7xl mx-auto">
+<div class="grid lg:grid-cols-2 gap-20 items-center">
+<div class="order-2 lg:order-1 relative">
+<div class="absolute -top-20 -left-20 w-64 h-64 bg-tertiary/10 rounded-full blur-3xl"></div>
+<div class="relative glass-panel rounded-[2.5rem] p-8 shadow-2xl border border-white/50">
+<div class="flex items-center gap-4 mb-8">
+<div class="w-12 h-12 rounded-full bg-tertiary flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+</div>
+<div>
+<h4 class="font-bold text-lg text-on-surface">AI Professor</h4>
+<span class="text-xs font-label text-tertiary font-bold uppercase">Online &amp; Analyzing</span>
+</div>
+</div>
+<div class="space-y-6 mb-8">
+<div class="p-4 bg-tertiary-dim/5 rounded-2xl rounded-tl-none mr-12 border border-tertiary/10">
+<p class="text-sm font-body text-tertiary">Hello Alex! I noticed you struggled with the Elasticity section. Would you like a 10-minute simplified breakdown?</p>
+</div>
+<div class="p-4 bg-primary text-on-primary rounded-2xl rounded-tr-none ml-12 shadow-md">
+<p class="text-sm font-body">Yes please, Professor. Focus on Cross-Price Elasticity specifically.</p>
+</div>
+<div class="p-4 bg-tertiary-dim/5 rounded-2xl rounded-tl-none mr-12 border border-tertiary/10">
+<p class="text-sm font-body text-tertiary">Excellent choice. Imagine if the price of coffee rises; the demand for tea usually increases. This is a positive cross-price elasticity...</p>
+</div>
+</div>
+<div class="relative">
+<input class="w-full bg-white border-outline-variant/20 rounded-full py-4 px-6 focus:ring-tertiary focus:border-tertiary transition-all" placeholder="Ask your professor anything..." type="text"/>
+<button class="absolute right-2 top-2 p-2 bg-tertiary text-white rounded-full">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+</button>
+</div>
+</div>
+</div>
+<div class="order-1 lg:order-2">
+<span class="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest uppercase text-tertiary bg-tertiary-container/20 rounded-full font-label">The Curator's Mind</span>
+<h2 class="text-4xl md:text-6xl font-extrabold font-headline text-on-background mb-8 leading-tight">Your Personal <span class="text-tertiary">AI Mentor</span> for every subject.</h2>
+<p class="text-xl text-on-surface-variant mb-10 leading-relaxed">The AI Professor isn't just a chatbot—it's a pedagogical engine. It tracks your learning speed, identifies knowledge gaps, and curates supplemental material from millions of peer-reviewed sources.</p>
+<ul class="space-y-6">
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-tertiary" data-icon="check_circle">check_circle</span>
+<div>
+<h5 class="font-bold font-headline text-on-background">Socratic Questioning</h5>
+<p class="text-on-surface-variant text-sm">The AI guides you to the answer rather than just giving it.</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-tertiary" data-icon="check_circle">check_circle</span>
+<div>
+<h5 class="font-bold font-headline text-on-background">Exam Simulations</h5>
+<p class="text-on-surface-variant text-sm">Generate adaptive mock tests based on your weakest areas.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-32 px-8">
+<div class="max-w-5xl mx-auto bg-gradient-to-br from-primary to-primary-dim rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl">
+<div class="absolute top-0 left-0 w-full h-full opacity-10">
+<img alt="Academic patterns and textures" class="w-full h-full object-cover" data-alt="Abstract geometric overlay with subtle circuit board patterns and academic icons in dark blue tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhP6QypHm4PXlHSAq9c6AkMUSw52aGDyTxV5G0JgJPjLBOiKnJ6AjTvPLdOo4vd5uFP-j2jBoAaHSHbWbreanOKE2sZoGIaJo4OFH5WYn0iHlGtIQtnT2DHgJwJ1NsyE3bhIBp5gcbdnYpXWJ2H4hC49q7H7S1DN2pZVYPHzQiNZO2clSx9Mlz6YPLsveKForZ_wcwVkLscQgbhP4iZh-0HDNz-WLtkIkS6Y2fVH0r90XUnSXDmKXTf1YPT6ky3pPDkozzUx45hvI"/>
+</div>
+<div class="relative z-10">
+<h2 class="text-4xl md:text-5xl font-extrabold font-headline text-on-primary mb-8">Ready to Elevate Your Academic Journey?</h2>
+<p class="text-primary-container text-xl mb-12 max-w-2xl mx-auto">Join over 1.2 million students who have transformed their study habits with the power of Academic Intelligence.</p>
+<div class="flex flex-wrap justify-center gap-6">
+<button class="px-10 py-5 bg-white text-primary rounded-full font-headline font-extrabold text-lg shadow-xl hover:scale-105 active:scale-95 transition-all">
+                            Get Started for Free
+                        </button>
+<button class="px-10 py-5 border-2 border-white/30 text-white rounded-full font-headline font-bold text-lg hover:bg-white/10 transition-all">
+                            Contact Academic Advisor
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-16 px-8 bg-slate-50 dark:bg-slate-950 tonal-shift-bg">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 max-w-7xl mx-auto">
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-sky-700 text-3xl" data-icon="school">school</span>
+<span class="font-['Plus_Jakarta_Sans'] font-bold text-lg text-sky-900 dark:text-sky-100">Study Mitra</span>
+</div>
+<p class="font-['Manrope'] text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                    © 2024 Study Mitra. Your Academic Curator. We empower students through advanced intelligence and focused design.
+                </p>
+</div>
+<div>
+<h4 class="font-headline font-bold text-on-surface mb-6">Product</h4>
+<ul class="space-y-4 font-['Manrope'] text-sm">
+<li><a class="text-slate-500 hover:text-sky-600 hover:translate-x-1 transition-all inline-block" href="#">Curator Dashboard</a></li>
+<li><a class="text-slate-500 hover:text-sky-600 hover:translate-x-1 transition-all inline-block" href="#">AI Professor</a></li>
+<li><a class="text-slate-500 hover:text-sky-600 hover:translate-x-1 transition-all inline-block" href="#">Timetable</a></li>
+<li><a class="text-slate-500 hover:text-sky-600 hover:translate-x-1 transition-all inline-block" href="#">Resource Library</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-headline font-bold text-on-surface mb-6">Support</h4>
+<ul class="space-y-4 font-['Manrope'] text-sm">
+<li><a class="text-slate-500 hover:text-sky-600 hover:translate-x-1 transition-all inline-block" href="#">Privacy Policy</a></li>
+<li><a class="text-slate-500 hover:text-sky-600 hover:translate-x-1 transition-all inline-block" href="#">Terms of Service</a></li>
+<li><a class="text-slate-500 hover:text-sky-600 hover:translate-x-1 transition-all inline-block" href="#">Help Center</a></li>
+<li><a class="text-slate-500 hover:text-sky-600 hover:translate-x-1 transition-all inline-block" href="#">Community Forum</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-headline font-bold text-on-surface mb-6">Newsletter</h4>
+<p class="text-sm text-slate-600 mb-4">Get weekly study tips curated by our AI Professor.</p>
+<div class="flex flex-col gap-3">
+<input class="bg-surface border-outline-variant/30 rounded-xl px-4 py-2 focus:ring-primary focus:border-primary" placeholder="Email Address" type="email"/>
+<button class="bg-primary text-white py-2 rounded-xl font-bold font-headline hover:opacity-90">Subscribe</button>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

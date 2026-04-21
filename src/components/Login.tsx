@@ -5,9 +5,10 @@ import { supabase } from '../lib/supabase';
 
 type Props = {
   onLogin: (user: any) => void;
+  onBack?: () => void;
 };
 
-export default function Login({ onLogin }: Props) {
+export default function Login({ onLogin, onBack }: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -61,6 +62,15 @@ export default function Login({ onLogin }: Props) {
       {/* Background Decorative Blobs */}
       <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 rounded-full blur-[120px]" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-emerald-500/20 rounded-full blur-[120px]" />
+
+      {onBack && (
+        <button 
+          onClick={onBack}
+          className="absolute top-8 left-8 flex items-center gap-2 text-slate-500 hover:text-slate-800 font-medium transition-colors bg-white/50 px-4 py-2 rounded-full backdrop-blur-sm z-20 shadow-sm border border-slate-200"
+        >
+          <ArrowRight size={16} className="rotate-180" /> Back to Home
+        </button>
+      )}
 
       <motion.div 
         initial={{ opacity: 0, y: 20 }}

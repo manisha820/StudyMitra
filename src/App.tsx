@@ -8,6 +8,7 @@ import Pomodoro from './components/Pomodoro';
 import MitraCoach from './components/MitraCoach';
 import Analytics from './components/Analytics';
 import Login from './components/Login';
+import LandingPage from './components/LandingPage';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, LogOut, Loader2 } from 'lucide-react';
 import { supabase } from './lib/supabase';
@@ -17,6 +18,7 @@ export default function App() {
   const [user, setUser] = useState<any>(null);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
   const [isDataLoading, setIsDataLoading] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
   
   // App State
   const [subjects, setSubjects] = useState<Subject[]>([]);
@@ -124,7 +126,10 @@ export default function App() {
   }
 
   if (!user) {
-    return <Login onLogin={setUser} />;
+    if (showLogin) {
+      return <Login onLogin={setUser} onBack={() => setShowLogin(false)} />;
+    }
+    return <LandingPage onGoToLogin={() => setShowLogin(true)} />;
   }
 
   return (

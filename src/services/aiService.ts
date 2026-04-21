@@ -1,7 +1,8 @@
+/// <reference types="vite/client" />
 import { GoogleGenAI, Type } from "@google/genai";
 import { Message, Subject, TimetableEntry, DailyRoutine } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || '' });
+const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY || '' });
 
 export async function askProfessor(query: string, history: Message[] = []) {
   try {
@@ -118,7 +119,7 @@ ${subjects.map(s => {
 Return ONLY a JSON array — no markdown, no explanation.`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash-preview-04-17",
+      model: "gemini-3-flash-preview",
       contents: prompt,
       config: {
         responseMimeType: "application/json",
@@ -139,7 +140,8 @@ Return ONLY a JSON array — no markdown, no explanation.`;
       }
     });
 
-    const raw = JSON.parse(response.text) as Omit<TimetableEntry, 'id' | 'subjectId'>[];
+    const rawText = typeof response.text === 'function' ? response.text() : response.text;
+    const raw = JSON.parse(rawText) as Omit<TimetableEntry, 'id' | 'subjectId'>[];
 
     // Hydrate with IDs and subjectId
     return raw.map((entry, i) => ({
@@ -150,6 +152,16 @@ Return ONLY a JSON array — no markdown, no explanation.`;
     })) as TimetableEntry[];
   } catch (error) {
     console.error("Smart Timetable AI Error:", error);
-    return [];
+    // Provide a graceful fallback to ensure the UI still renders a valid timetable
+    const days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+    return subjects.map((s, i) => ({
+      id: `smart-fallback-${Date.now()}-${i}`,
+      subjectId: s.id,
+      subjectName: s.name,
+      topicName: s.units[0]?.topics[0]?.name || "Review Session",
+      startTime: "10:00",
+      endTime: "11:30",
+      day: days[i % 7]
+    }));
   }
 }

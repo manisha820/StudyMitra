@@ -14,6 +14,9 @@ type Props = {
 export default function SyllabusManager({ user, subjects, setSubjects }: Props) {
   const [newSubjectName, setNewSubjectName] = useState('');
   const [expandedSubject, setExpandedSubject] = useState<string | null>(null);
+  const [addingUnit, setAddingUnit] = useState<string | null>(null);
+  const [addingTopic, setAddingTopic] = useState<string | null>(null);
+  const [draftName, setDraftName] = useState('');
 
   const addSubject = async () => {
     if (!newSubjectName.trim()) return;
@@ -47,9 +50,11 @@ export default function SyllabusManager({ user, subjects, setSubjects }: Props) 
     if (user) await supabase.from('subjects').update({ difficulty }).eq('id', id);
   };
 
-  const addUnit = async (subjectId: string) => {
-    const unitName = prompt('Enter unit name:');
-    if (!unitName) return;
+  const submitAddUnit = async (subjectId: string) => {
+    if (!draftName.trim()) return;
+    const unitName = draftName;
+    setAddingUnit(null);
+    setDraftName('');
     const unitId = Date.now().toString();
     setSubjects(subjects.map(s => {
       if (s.id === subjectId) {
@@ -65,9 +70,11 @@ export default function SyllabusManager({ user, subjects, setSubjects }: Props) 
     }
   };
 
-  const addTopic = async (subjectId: string, unitId: string) => {
-    const topicName = prompt('Enter topic name:');
-    if (!topicName) return;
+  const submitAddTopic = async (subjectId: string, unitId: string) => {
+    if (!draftName.trim()) return;
+    const topicName = draftName;
+    setAddingTopic(null);
+    setDraftName('');
     const topicId = Date.now().toString();
     setSubjects(subjects.map(s => {
       if (s.id === subjectId) {
@@ -210,7 +217,7 @@ export default function SyllabusManager({ user, subjects, setSubjects }: Props) 
                         <div className="flex justify-between items-center">
                           <h4 className="font-bold text-slate-700">{unit.name}</h4>
                           <button 
-                            onClick={() => addTopic(subject.id, unit.id)}
+                            onClick={() => { setAddingTopic(unit.id); setAddingUnit(null); setDraftName(''); }}
                             className="text-xs font-bold text-primary hover:underline"
                           >
                             + Topic
@@ -237,15 +244,46 @@ export default function SyllabusManager({ user, subjects, setSubjects }: Props) 
                               </span>
                             </button>
                           ))}
+                          {addingTopic === unit.id && (
+                            <div className="flex items-center gap-2 mt-2">
+                              <input 
+                                autoFocus
+                                type="text" 
+                                value={draftName}
+                                onChange={(e) => setDraftName(e.target.value)}
+                                placeholder="Topic name..." 
+                                className="flex-1 text-sm bg-white border border-slate-200 rounded-lg px-3 py-2 outline-none focus:border-primary"
+                                onKeyPress={(e) => e.key === 'Enter' && submitAddTopic(subject.id, unit.id)}
+                              />
+                              <button onClick={() => submitAddTopic(subject.id, unit.id)} className="bg-primary text-white p-2 rounded-lg"><Plus size={16}/></button>
+                              <button onClick={() => setAddingTopic(null)} className="text-slate-400 p-2 hover:text-red-500 text-xs font-bold uppercase tracking-wider">Cancel</button>
+                            </div>
+                          )}
                         </div>
                       </div>
                     ))}
-                    <button 
-                      onClick={() => addUnit(subject.id)}
-                      className="w-full py-4 border-2 border-dashed border-slate-200 rounded-2xl text-slate-400 text-xs font-bold uppercase tracking-widest hover:border-primary hover:text-primary transition-all"
-                    >
-                      + Add Unit
-                    </button>
+                    {addingUnit === subject.id ? (
+                      <div className="flex items-center gap-2 mt-4 bg-white p-2 rounded-2xl border border-slate-200 shadow-sm">
+                        <input 
+                          autoFocus
+                          type="text" 
+                          value={draftName}
+                          onChange={(e) => setDraftName(e.target.value)}
+                          placeholder="Enter Unit Name..." 
+                          className="flex-1 text-sm bg-transparent outline-none px-2"
+                          onKeyPress={(e) => e.key === 'Enter' && submitAddUnit(subject.id)}
+                        />
+                        <button onClick={() => submitAddUnit(subject.id)} className="bg-primary text-white px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:opacity-90">Save</button>
+                        <button onClick={() => setAddingUnit(null)} className="text-slate-400 px-3 hover:text-red-500 text-xs font-bold uppercase tracking-wider">Cancel</button>
+                      </div>
+                    ) : (
+                      <button 
+                        onClick={() => { setAddingUnit(subject.id); setAddingTopic(null); setDraftName(''); }}
+                        className="w-full py-4 border-2 border-dashed border-slate-200 rounded-2xl text-slate-400 text-xs font-bold uppercase tracking-widest hover:border-primary hover:text-primary transition-all"
+                      >
+                        + Add Unit
+                      </button>
+                    )}
                   </div>
                 </motion.div>
               )}
